@@ -35,7 +35,7 @@ Kiểu dữ liệu là khái niệm biểu thị loại giấ trị mà một bi
 char X='a';
 z=(int)X;      
 ```
--> z=96
+-> z=97
 
 **Địa chỉ của biến là vị trí trong bộ nhớ nơi giá trị của biến được lưu trữ.
 Giá trị của biến là dữ liệu được lưu trữ bên trong biến.**
