@@ -1,18 +1,31 @@
 # Kiểu dữ liệu
-Kiểu dữ liệu là khái niệm biểu thị loại giấ trị mà một biến có thể lưu trữ và thao tác. Các kiểu dữ liệu cung cấp cách để máy tính hiểu cách lưu trữ, quản lý và xử lý thông tin.
+Kiểu dữ liệu là khái niệm biểu thị loại giá trị mà một biến có thể lưu trữ và thao tác. Các kiểu dữ liệu cung cấp cách để máy tính hiểu cách lưu trữ, quản lý và xử lý thông tin.
 
 # Các kiểu dữ liệu nguyên thủy
-- **số nguyên(int)**: lưu trữ cá gtri nguyên, không có phần thập phân
--- độ lớn: 1byte(8bit)->8byte(64bit)
--- đặc tả: gồm kiểu có dấu(int) và kiểu không có dấu(unsigned int) 
-- **số thực(double)**: lưu trữ các giá trị số thập phân
--- độ lớn: float(32bit) lưu trữ ~6 chữ số thập phân, double(64bit) lưu trữ ~15 chữ số thập phân
-- **kí tự(char)**: lưu trữ kí tự đơn
--- đặc tả: dùng mã ASCII hoặc Unicode
--- độ lớn: 1->2byte
-- **logic(bool)**: lưu trữ giá trị đúng sai
--- đặc tả: 0(false)/1(true)
--- độ lớn: 1bit->1byte
+| Kiểu dữ liệu | Đặc tính biểu diễn | Độ lớn | Đặc tả | 
+| ------------ | ------------------ | ------ | ------ |
+| int | Số nguyên | 4 byte | %d |
+| float | Số thực | 4 byte | %f |
+| char | Ký tự | 1 byte | %c | 
+| bool | Giá trị logic | 1 byte | true/false |
+
+  - fload biểu diễn chính xác 6-7 chữ số tp có nghĩa
+
+  - double biểu diễn chính xác 14-15 chữ số tp có nghĩa
+```
+#include <stdio.h>
+#include <stdlib.h>
+int main()
+{
+    float b=12.4567890123456789;
+    double c=12.4567890123456789123456;
+    printf("%.20f\n",b);
+    printf("%.20lf\n",c);
+    return 0;
+}
+```
+output: ![Screenshot 2025-03-12 210301](https://hackmd.io/_uploads/HkK74MJnyx.png)
+
 
 # Biểu diễn kiểu dữ liệu có dấu và không có dấu
 - Kiểu dữ liệu có dấu (signed) dùng bit đầu tiên để biểu thị dấu (0 cho dương, 1 cho âm)
@@ -20,7 +33,23 @@ Kiểu dữ liệu là khái niệm biểu thị loại giấ trị mà một bi
 - Ví dụ với 8-bit số nguyên biểu diễn được phạm vi:
 -- Có dấu: -128 đến 127.
 -- Không dấu: 0 đến 255.
-![Screenshot 2025-03-09 153519](https://hackmd.io/_uploads/rJq1XAqsyl.png)
+```
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    int a=-12;
+    float b=12.4;
+    char c='T';
+    printf("so nguyen: %d\n",a);
+    printf("so thuc: %f\n",b);
+    printf("ki tu: %c\n",c);
+    return 0;
+}
+```
+output:
+![Screenshot 2025-03-12 200839](https://hackmd.io/_uploads/H18ODbk21l.png)
 
 # Ép kiểu
 **Ép kiểu là quá trình chuyển đổi gtri từ kiểu dữ liệu này sang kiểu dự liệu khác.**
@@ -35,18 +64,49 @@ Kiểu dữ liệu là khái niệm biểu thị loại giấ trị mà một bi
 char X='a';
 z=(int)X;      
 ```
--> z=97
+-> z=96
 
-**Địa chỉ của biến là vị trí trong bộ nhớ nơi giá trị của biến được lưu trữ.
-Giá trị của biến là dữ liệu được lưu trữ bên trong biến.**
-![Screenshot 2025-03-09 154332](https://hackmd.io/_uploads/rkop409oke.png)
+  - **Địa chỉ của biến là vị trí trong bộ nhớ nơi giá trị của biến được lưu trữ.**
+  - **Giá trị của biến là dữ liệu được lưu trữ bên trong biến.**
+```
+#include <stdio.h>
+#include <stdlib.h>
 
+int main()
+{
+    char a='T';
+    float b=12.4;
+    double c=12.45678;
+    short d=124;
+    unsigned int e=12;
+    int f=-12;
+    long g=12345;
+    long long h=12345678901234;
+    printf("% *c %p\n",15,a,&a);
+    printf("% *f %p\n",15,b,&b);
+    printf("% *lf %p\n",15,c,&c);
+    printf("% *d %p\n",15,d,&d);
+    printf("% *u %p\n",15,e,&e);
+    printf("% *d %p\n",15,f,&f);
+    printf("% *ld %p\n",15,g,&g);
+    printf("% *lld %p\n",15,h,&h);
+
+    printf("a->b: %d\n", (int)&a - (int)&b);
+    printf("b->c: %d\n", (int)&b - (int)&c);
+    printf("c->d: %d\n", (int)&c - (int)&d);
+    printf("d->e: %d\n", (int)&d - (int)&e);
+    printf("e->f: %d\n", (int)&e - (int)&f);
+    printf("f->g: %d\n", (int)&f - (int)&g);
+    printf("g->h: %d\n", (int)&g - (int)&h);
+    return 0;
+}
+```
 output:
-![Screenshot 2025-03-09 162151](https://hackmd.io/_uploads/ry8p6RqjJx.png)
+![Screenshot 2025-03-12 203320](https://hackmd.io/_uploads/rkgL6bJhyx.png)
 
-Trình biên dịch thường căn chỉnh (alignment) biến trên bộ nhớ để tối ưu hóa hiệu suất. Điều này dẫn đến sự chênh lệch địa chỉ giữa các biến (thường là bội số của kích thước biến).
+Các biến khi được khai báo đều được cấp phát địa chỉ vùng bộ nhớ và vì các biến là các kiểu dữ liệu khác nhau nên chúng chiếm các vùng bộ nhớ khác nhau nên chênh lệch địa chỉ không đồng đều.  
 
 # Biến toàn cục, biến cục bộ
-Biến toàn cục(thường khai báo ở đầu chương trình) có thể gọi và dùng cho cả chương trình.
+  - Biến toàn cục(thường khai báo ở đầu chương trình) có thể gọi và dùng cho cả chương trình(sau vị trí khai báo).
 
-Biến cục bộ(thường khai báo trong hàm hoặc trong khối lệnh) chỉ có thể gọi và dùng trong một hàm hay chương trình con đã khai báo.
+  - Biến cục bộ(thường khai báo trong hàm hoặc trong khối lệnh) chỉ có thể gọi và dùng trong một hàm hay chương trình con đã khai báo.
